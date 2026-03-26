@@ -2,6 +2,7 @@
 package com.mitienda.tienda_api.controller;
 import com.mitienda.tienda_api.service.ProductoService;
 import com.mitienda.tienda_api.model.Producto;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,11 +33,11 @@ public class ProductoController {
         return p != null ? ResponseEntity.ok(p) : ResponseEntity.notFound().build();
     }
     @PostMapping
-    public ResponseEntity<Producto> crear (@RequestBody Producto nuevo){
+    public ResponseEntity<Producto> crear (@Valid @RequestBody Producto nuevo){
         return ResponseEntity.status(201).body(service.crear(nuevo));
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto actualizado){
+    public ResponseEntity<Producto> actualizar(@PathVariable Long id,@Valid @RequestBody Producto actualizado){
         Producto p = service.actualizar(id, actualizado);
         return p != null ? ResponseEntity.ok(p) : ResponseEntity.notFound().build();
     }
